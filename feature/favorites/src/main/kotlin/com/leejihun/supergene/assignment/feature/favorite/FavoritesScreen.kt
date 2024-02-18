@@ -1,4 +1,4 @@
-package com.leejihun.supergene.assignment.feature.home
+package com.leejihun.supergene.assignment.feature.favorite
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,12 +15,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.leejihun.supergene.assignment.core.designsystem.R
 import com.leejihun.supergene.assignment.core.designsystem.SupergeneTopAppBar
 
-@Suppress("unused")
 @Composable
-internal fun HomeRoute(
+internal fun FavoriteRoute(
     padding: PaddingValues,
     onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
-    viewModel: HomeViewModel = hiltViewModel(),
+    viewModel: FavoriteViewModel = hiltViewModel(),
 ) {
     HomeScreen(
         padding = padding,
@@ -37,7 +36,7 @@ internal fun HomeScreen(
             .padding(bottom = padding.calculateBottomPadding()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        HomeTopAppBar(modifier = Modifier.statusBarsPadding())
+        FavoritesTopAppBar(modifier = Modifier.statusBarsPadding())
         Box(modifier = Modifier.fillMaxSize()) {
             HomeContent()
         }
@@ -45,11 +44,11 @@ internal fun HomeScreen(
 }
 
 @Composable
-internal fun HomeTopAppBar(
+internal fun FavoritesTopAppBar(
     modifier: Modifier = Modifier,
 ) {
     SupergeneTopAppBar(
-        titleRes = R.string.home_title,
+        titleRes = R.string.favorites_title,
         modifier = modifier,
     )
 }
@@ -61,7 +60,6 @@ internal fun HomeContent() {}
 @Composable
 internal fun HomeScreenPreview() {
     HomeScreen(
-        padding = PaddingValues(0.dp),
+        PaddingValues(0.dp),
     )
 }
-

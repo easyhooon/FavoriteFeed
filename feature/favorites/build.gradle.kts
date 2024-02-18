@@ -5,15 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.leejihun.supergene.assignment.feature.main"
+    namespace = "com.leejihun.supergene.assignment.feature.favorites"
 }
 
 dependencies {
     implementations(
-        projects.feature.favorites,
-        projects.feature.home,
-
-        libs.kotlinx.collections.immutable,
         libs.androidx.core,
         libs.androidx.activity.compose,
         libs.timber,
