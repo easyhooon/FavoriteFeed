@@ -14,5 +14,6 @@ dependencies {
         libs.androidx.activity.compose,
         libs.timber,
         libs.system.ui.controller,
+        libs.coil.compose,
     )
 }
