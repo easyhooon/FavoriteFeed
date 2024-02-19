@@ -9,11 +9,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.leejihun.supergene.assignment.core.designsystem.ComponentPreview
+import com.leejihun.supergene.assignment.core.designsystem.R
 
 @Composable
 fun EndOfResultScreen(
@@ -31,7 +33,7 @@ fun EndOfResultScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "모든 유저를 조회하였습니다.",
+                text = stringResource(id = R.string.end_message),
                 fontSize = 14.sp,
                 fontStyle = FontStyle.Normal,
                 fontWeight = FontWeight.W400,

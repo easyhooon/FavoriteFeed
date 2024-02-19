@@ -12,11 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.leejihun.supergene.assignment.core.designsystem.ComponentPreview
+import com.leejihun.supergene.assignment.core.designsystem.R
 
 @Composable
 fun LoadErrorScreen(
@@ -35,7 +37,7 @@ fun LoadErrorScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "유저 정보를 조회할 수 없습니다.",
+                text = stringResource(id = R.string.error_message),
                 modifier = Modifier.align(Alignment.CenterVertically),
                 fontSize = 14.sp,
                 fontStyle = FontStyle.Normal,
@@ -51,7 +53,7 @@ fun LoadErrorScreen(
                 )
             ) {
                 Text(
-                    text = "다시 시도",
+                    text = stringResource(id = R.string.retry),
                     fontSize = 14.sp,
                     fontStyle = FontStyle.Normal,
                     fontWeight = FontWeight.W400,

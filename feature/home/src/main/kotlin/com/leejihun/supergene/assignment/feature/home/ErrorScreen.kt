@@ -14,11 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.leejihun.supergene.assignment.core.designsystem.R
 
 @Composable
 fun ErrorScreen(
@@ -34,7 +36,7 @@ fun ErrorScreen(
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = "유저 정보를 조회할 수 없습니다.",
+                text = stringResource(id = R.string.error_message),
                 fontSize = 16.sp,
                 fontStyle = FontStyle.Normal,
                 fontWeight = FontWeight.W600,
@@ -50,7 +52,7 @@ fun ErrorScreen(
                 )
             ) {
                 Text(
-                    text = "다시 시도",
+                    text = stringResource(id = R.string.retry),
                     fontSize = 14.sp,
                     fontStyle = FontStyle.Normal,
                     fontWeight = FontWeight.W400,
