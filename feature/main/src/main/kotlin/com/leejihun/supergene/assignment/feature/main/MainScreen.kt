@@ -36,7 +36,7 @@ import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 import com.leejihun.supergene.assignment.core.designsystem.R
-import com.leejihun.supergene.assignment.feature.favorite.navigation.favoriteNavGraph
+import com.leejihun.supergene.assignment.feature.favorites.navigation.favoritesNavGraph
 
 @Composable
 internal fun MainScreen(
@@ -71,7 +71,7 @@ internal fun MainScreen(
                         onShowErrorSnackBar = onShowErrorSnackBar,
                     )
 
-                    favoriteNavGraph(
+                    favoritesNavGraph(
                         padding = padding,
                         onShowErrorSnackBar = onShowErrorSnackBar,
                     )

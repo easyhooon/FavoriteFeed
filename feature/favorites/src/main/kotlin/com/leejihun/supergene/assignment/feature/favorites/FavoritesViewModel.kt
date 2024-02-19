@@ -1,4 +1,4 @@
-package com.leejihun.supergene.assignment.feature.favorite
+package com.leejihun.supergene.assignment.feature.favorites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FavoriteViewModel @Inject constructor(
+class FavoritesViewModel @Inject constructor(
     private val repository: RandomUserRepository,
 ) : ViewModel() {
     val favoritesUserList = repository.getFavoritesUserList().cachedIn(viewModelScope)

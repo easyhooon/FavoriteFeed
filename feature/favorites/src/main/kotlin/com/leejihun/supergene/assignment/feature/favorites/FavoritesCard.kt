@@ -1,5 +1,6 @@
-package com.leejihun.supergene.assignment.feature.favorite
+package com.leejihun.supergene.assignment.feature.favorites
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +33,7 @@ import com.leejihun.supergene.assignment.domain.entity.UserPictureEntity
 @Composable
 fun FavoritesCard(
     userInfo: UserInfoEntity,
+    deleteFavoritesUser: (UserInfoEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier.padding(16.dp)) {
@@ -70,7 +72,11 @@ fun FavoritesCard(
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_favorite_checked),
                 contentDescription = "Like Button",
-                modifier = Modifier.padding(8.dp),
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable {
+                        deleteFavoritesUser(userInfo)
+                    },
                 tint = Color.Unspecified,
             )
         }
@@ -86,6 +92,7 @@ fun FavoritesCardPreview() {
             email = "dennis.anderson@gmail.com",
             picture = UserPictureEntity("", "", ""),
         ),
+        deleteFavoritesUser = { _ -> },
         modifier = Modifier.size(width = 68.dp, height = 74.dp),
     )
 }

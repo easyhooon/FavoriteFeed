@@ -9,7 +9,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.leejihun.supergene.assignment.feature.favorite.navigation.navigateToFavorites
+import com.leejihun.supergene.assignment.feature.favorites.navigation.navigateToFavorites
 import com.leejihun.supergene.assignment.feature.home.navigation.HOME_ROUTE
 import com.leejihun.supergene.assignment.feature.home.navigation.navigateToHome
 

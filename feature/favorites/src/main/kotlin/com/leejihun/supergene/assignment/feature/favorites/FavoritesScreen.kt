@@ -1,5 +1,8 @@
-package com.leejihun.supergene.assignment.feature.favorite
+package com.leejihun.supergene.assignment.feature.favorites
 
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,23 +31,27 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Suppress("unused")
 @Composable
-internal fun FavoriteRoute(
+internal fun FavoritesRoute(
     padding: PaddingValues,
     onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
-    viewModel: FavoriteViewModel = hiltViewModel(),
+    viewModel: FavoritesViewModel = hiltViewModel(),
 ) {
     val favoritesUserList = viewModel.favoritesUserList.collectAsLazyPagingItems()
 
-    HomeScreen(
+    FavoritesScreen(
         padding = padding,
         favoritesUserList = favoritesUserList,
+        insertFavoritesUser = viewModel::insertFavoritesUser,
+        deleteFavoritesUser = viewModel::deleteFavoritesUser,
     )
 }
 
 @Composable
-internal fun HomeScreen(
+internal fun FavoritesScreen(
     padding: PaddingValues,
     favoritesUserList: LazyPagingItems<UserInfoEntity>,
+    insertFavoritesUser: (UserInfoEntity) -> Unit,
+    deleteFavoritesUser: (UserInfoEntity) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -54,7 +61,10 @@ internal fun HomeScreen(
     ) {
         FavoritesTopAppBar(modifier = Modifier.statusBarsPadding())
         Box(modifier = Modifier.fillMaxSize()) {
-            FavoriteContent(favoritesUserList = favoritesUserList)
+            FavoriteContent(
+                favoritesUserList = favoritesUserList,
+                deleteFavoritesUser = deleteFavoritesUser,
+            )
         }
     }
 }
@@ -69,9 +79,11 @@ internal fun FavoritesTopAppBar(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun FavoriteContent(
     favoritesUserList: LazyPagingItems<UserInfoEntity>,
+    deleteFavoritesUser: (UserInfoEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -84,7 +96,16 @@ internal fun FavoriteContent(
             contentType = favoritesUserList.itemContentType(),
         ) { index ->
             favoritesUserList[index]?.let { userInfo ->
-                FavoritesCard(userInfo = userInfo)
+                FavoritesCard(
+                    userInfo = userInfo,
+                    deleteFavoritesUser = deleteFavoritesUser,
+                    modifier = Modifier.animateItemPlacement(
+                        animationSpec = tween(
+                            durationMillis = 500,
+                            easing = LinearOutSlowInEasing,
+                        )
+                    )
+                )
             }
         }
     }
@@ -92,7 +113,7 @@ internal fun FavoriteContent(
 
 @Preview(showBackground = true)
 @Composable
-internal fun HomeScreenPreview() {
+internal fun FavoritesScreenPreview() {
     val favoritesUsers = mutableListOf<UserInfoEntity>()
     for (i in 1..5) {
         favoritesUsers.add(
@@ -105,8 +126,10 @@ internal fun HomeScreenPreview() {
     }
     val favoritesUserList = MutableStateFlow(PagingData.from(favoritesUsers)).collectAsLazyPagingItems()
 
-    HomeScreen(
+    FavoritesScreen(
         padding = PaddingValues(0.dp),
         favoritesUserList = favoritesUserList,
+        insertFavoritesUser = { _ -> },
+        deleteFavoritesUser = { _ -> },
     )
 }
