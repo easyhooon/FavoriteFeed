@@ -10,6 +10,8 @@ android {
 
 dependencies {
     implementations(
+        projects.core.domain,
+
         libs.androidx.core,
         libs.androidx.activity.compose,
         libs.androidx.paging.compose,

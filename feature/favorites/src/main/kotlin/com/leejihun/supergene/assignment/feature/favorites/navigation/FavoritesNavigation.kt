@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
 import com.leejihun.supergene.assignment.feature.favorites.FavoritesRoute
 
 const val FAVORITES_ROUTE = "favorites_route"
@@ -15,12 +16,12 @@ fun NavController.navigateToFavorites(navOptions: NavOptions) {
 
 fun NavGraphBuilder.favoritesNavGraph(
     padding: PaddingValues,
-    onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
+    onShowSnackBar: (UserInfoEntity) -> Unit,
 ) {
     composable(route = FAVORITES_ROUTE) {
         FavoritesRoute(
             padding = padding,
-            onShowErrorSnackBar = onShowErrorSnackBar,
+            onShowSnackBar = onShowSnackBar,
         )
     }
 }

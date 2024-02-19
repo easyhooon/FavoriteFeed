@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.PagingData
@@ -22,6 +21,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import com.leejihun.supergene.assignment.core.designsystem.DevicePreview
 import com.leejihun.supergene.assignment.core.designsystem.R
 import com.leejihun.supergene.assignment.core.designsystem.component.SupergeneTopAppBar
 import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
@@ -29,11 +29,10 @@ import com.leejihun.supergene.assignment.domain.entity.UserNameEntity
 import com.leejihun.supergene.assignment.domain.entity.UserPictureEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 
-@Suppress("unused")
 @Composable
 internal fun FavoritesRoute(
     padding: PaddingValues,
-    onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
+    onShowSnackBar: (UserInfoEntity) -> Unit,
     viewModel: FavoritesViewModel = hiltViewModel(),
 ) {
     val favoritesUserList = viewModel.favoritesUserList.collectAsLazyPagingItems()
@@ -41,8 +40,8 @@ internal fun FavoritesRoute(
     FavoritesScreen(
         padding = padding,
         favoritesUserList = favoritesUserList,
-        insertFavoritesUser = viewModel::insertFavoritesUser,
         deleteFavoritesUser = viewModel::deleteFavoritesUser,
+        onShowSnackBar = onShowSnackBar,
     )
 }
 
@@ -50,8 +49,8 @@ internal fun FavoritesRoute(
 internal fun FavoritesScreen(
     padding: PaddingValues,
     favoritesUserList: LazyPagingItems<UserInfoEntity>,
-    insertFavoritesUser: (UserInfoEntity) -> Unit,
     deleteFavoritesUser: (UserInfoEntity) -> Unit,
+    onShowSnackBar: (UserInfoEntity) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -64,6 +63,7 @@ internal fun FavoritesScreen(
             FavoriteContent(
                 favoritesUserList = favoritesUserList,
                 deleteFavoritesUser = deleteFavoritesUser,
+                onShowSnackBar = onShowSnackBar,
             )
         }
     }
@@ -84,6 +84,7 @@ internal fun FavoritesTopAppBar(
 internal fun FavoriteContent(
     favoritesUserList: LazyPagingItems<UserInfoEntity>,
     deleteFavoritesUser: (UserInfoEntity) -> Unit,
+    onShowSnackBar: (UserInfoEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -99,19 +100,20 @@ internal fun FavoriteContent(
                 FavoritesCard(
                     userInfo = userInfo,
                     deleteFavoritesUser = deleteFavoritesUser,
+                    onShowSnackBar = onShowSnackBar,
                     modifier = Modifier.animateItemPlacement(
                         animationSpec = tween(
                             durationMillis = 500,
                             easing = LinearOutSlowInEasing,
-                        )
-                    )
+                        ),
+                    ),
                 )
             }
         }
     }
 }
 
-@Preview(showBackground = true)
+@DevicePreview
 @Composable
 internal fun FavoritesScreenPreview() {
     val favoritesUsers = mutableListOf<UserInfoEntity>()
@@ -119,7 +121,7 @@ internal fun FavoritesScreenPreview() {
         favoritesUsers.add(
             UserInfoEntity(
                 name = UserNameEntity("Mrs", "Sheryl", "Alvarez"),
-                email = "sheryl.alvarez${i}@example.com",
+                email = "sheryl.alvarez@example.com$i",
                 picture = UserPictureEntity("", "", ""),
             ),
         )
@@ -129,7 +131,7 @@ internal fun FavoritesScreenPreview() {
     FavoritesScreen(
         padding = PaddingValues(0.dp),
         favoritesUserList = favoritesUserList,
-        insertFavoritesUser = { _ -> },
+        onShowSnackBar = { _ -> },
         deleteFavoritesUser = { _ -> },
     )
 }

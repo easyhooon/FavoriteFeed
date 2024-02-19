@@ -17,7 +17,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.PagingData
@@ -25,6 +24,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import com.leejihun.supergene.assignment.core.designsystem.DevicePreview
 import com.leejihun.supergene.assignment.core.designsystem.R
 import com.leejihun.supergene.assignment.core.designsystem.component.SupergeneTopAppBar
 import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
@@ -122,7 +122,6 @@ internal fun HomeContent(
                         deleteFavoritesUser = deleteFavoritesUser,
                     )
                 }
-
             }
         }
         if (pullToRefreshState.isRefreshing) {
@@ -134,7 +133,7 @@ internal fun HomeContent(
     }
 }
 
-@Preview(showBackground = true)
+@DevicePreview
 @Composable
 internal fun HomeScreenPreview() {
     val randomUsers = mutableListOf<UserInfoEntity>()
@@ -142,7 +141,7 @@ internal fun HomeScreenPreview() {
         randomUsers.add(
             UserInfoEntity(
                 name = UserNameEntity("Mrs", "Sheryl", "Alvarez"),
-                email = "sheryl.alvarez${i}@example.com",
+                email = "sheryl.alvarez@example.com$i",
                 picture = UserPictureEntity("", "", ""),
             ),
         )
@@ -156,4 +155,3 @@ internal fun HomeScreenPreview() {
         deleteFavoritesUser = { _ -> },
     )
 }
-

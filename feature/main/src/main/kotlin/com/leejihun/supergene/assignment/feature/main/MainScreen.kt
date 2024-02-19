@@ -16,8 +16,10 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -28,6 +30,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import com.leejihun.supergene.assignment.core.designsystem.ComponentPreview
 import com.leejihun.supergene.assignment.feature.home.navigation.homeNavGraph
@@ -36,11 +39,13 @@ import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 import com.leejihun.supergene.assignment.core.designsystem.R
+import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
 import com.leejihun.supergene.assignment.feature.favorites.navigation.favoritesNavGraph
 
 @Composable
 internal fun MainScreen(
     navigator: MainNavController = rememberMainNavController(),
+    viewModel: MainViewModel = hiltViewModel(),
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
 
@@ -54,6 +59,23 @@ internal fun MainScreen(
                     else -> resource.getString(R.string.error_message_unknown)
                 },
             )
+        }
+    }
+
+    val onShowSnackBar: (userInfo: UserInfoEntity) -> Unit = { userInfo ->
+        coroutineScope.launch {
+            val snackBarResult = snackBarHostState.showSnackbar(
+                message = "${userInfo.name.title} ${userInfo.name.first} ${userInfo.name.last} 님을 즐겨찾기에서 삭제하였습니다.",
+                actionLabel = "Undo",
+                duration = SnackbarDuration.Short,
+            )
+            when (snackBarResult) {
+                SnackbarResult.ActionPerformed -> {
+                    viewModel.insertFavoritesUser(userInfo)
+                }
+
+                SnackbarResult.Dismissed -> Unit
+            }
         }
     }
 
@@ -73,7 +95,7 @@ internal fun MainScreen(
 
                     favoritesNavGraph(
                         padding = padding,
-                        onShowErrorSnackBar = onShowErrorSnackBar,
+                        onShowSnackBar = onShowSnackBar,
                     )
                 }
             }

@@ -34,6 +34,7 @@ import com.leejihun.supergene.assignment.domain.entity.UserPictureEntity
 fun FavoritesCard(
     userInfo: UserInfoEntity,
     deleteFavoritesUser: (UserInfoEntity) -> Unit,
+    onShowSnackBar: (UserInfoEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier.padding(16.dp)) {
@@ -76,6 +77,7 @@ fun FavoritesCard(
                     .padding(8.dp)
                     .clickable {
                         deleteFavoritesUser(userInfo)
+                        onShowSnackBar(userInfo)
                     },
                 tint = Color.Unspecified,
             )
@@ -93,6 +95,7 @@ fun FavoritesCardPreview() {
             picture = UserPictureEntity("", "", ""),
         ),
         deleteFavoritesUser = { _ -> },
+        onShowSnackBar = { _ -> },
         modifier = Modifier.size(width = 68.dp, height = 74.dp),
     )
 }

@@ -15,12 +15,6 @@ class FavoritesViewModel @Inject constructor(
 ) : ViewModel() {
     val favoritesUserList = repository.getFavoritesUserList().cachedIn(viewModelScope)
 
-    fun insertFavoritesUser(userInfo: UserInfoEntity) {
-        viewModelScope.launch {
-            repository.insertFavoritesUser(userInfo)
-        }
-    }
-
     fun deleteFavoritesUser(userInfo: UserInfoEntity) {
         viewModelScope.launch {
             repository.deleteFavoritesUser(userInfo)

@@ -33,6 +33,7 @@ import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
 import com.leejihun.supergene.assignment.domain.entity.UserNameEntity
 import com.leejihun.supergene.assignment.domain.entity.UserPictureEntity
 
+@Suppress("unused")
 @Composable
 fun HomeCard(
     userInfo: UserInfoEntity,
