@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -30,6 +31,9 @@ import com.leejihun.supergene.assignment.core.designsystem.component.SupergeneTo
 import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
 import com.leejihun.supergene.assignment.domain.entity.UserNameEntity
 import com.leejihun.supergene.assignment.domain.entity.UserPictureEntity
+import com.leejihun.supergene.assignment.feature.home.component.HomeCard
+import com.leejihun.supergene.assignment.feature.home.component.LoadStateFooter
+import com.leejihun.supergene.assignment.feature.home.component.LoadingIndicator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -95,6 +99,9 @@ internal fun HomeContent(
     val pullToRefreshState = rememberPullToRefreshState()
     val lazyListState = rememberLazyListState()
 
+    val isLoading = randomUserList.loadState.refresh is LoadState.Loading
+    val isError = randomUserList.loadState.refresh is LoadState.Error
+
     LaunchedEffect(key1 = pullToRefreshState.isRefreshing) {
         if (pullToRefreshState.isRefreshing) {
             randomUserList.refresh()
@@ -104,31 +111,44 @@ internal fun HomeContent(
         }
     }
 
-    Box(modifier = Modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
-        LazyColumn(
-            modifier = modifier.fillMaxSize(),
-            state = lazyListState,
-            verticalArrangement = Arrangement.spacedBy(24.dp),
-        ) {
-            items(
-                count = randomUserList.itemCount,
-                key = randomUserList.itemKey(key = { user -> user.email }),
-                contentType = randomUserList.itemContentType(),
-            ) { index ->
-                randomUserList[index]?.let { userInfo ->
-                    HomeCard(
-                        userInfo = userInfo,
-                        insertFavoritesUser = insertFavoritesUser,
-                        deleteFavoritesUser = deleteFavoritesUser,
+    when {
+        isLoading -> LoadingIndicator()
+        isError -> ErrorScreen(onClickRetryButton = { randomUserList.retry() })
+        else -> {
+            Box(modifier = Modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
+                LazyColumn(
+                    modifier = modifier.fillMaxSize(),
+                    state = lazyListState,
+                    verticalArrangement = Arrangement.spacedBy(24.dp),
+                ) {
+                    items(
+                        count = randomUserList.itemCount,
+                        key = randomUserList.itemKey(key = { user -> user.email }),
+                        contentType = randomUserList.itemContentType(),
+                    ) { index ->
+                        randomUserList[index]?.let { userInfo ->
+                            HomeCard(
+                                userInfo = userInfo,
+                                insertFavoritesUser = insertFavoritesUser,
+                                deleteFavoritesUser = deleteFavoritesUser,
+                            )
+                        }
+                    }
+
+                    item {
+                        LoadStateFooter(
+                            loadState = randomUserList.loadState.append,
+                            onRetryClick = { randomUserList.retry() }
+                        )
+                    }
+                }
+                if (pullToRefreshState.isRefreshing) {
+                    PullToRefreshContainer(
+                        modifier = Modifier.align(Alignment.TopCenter),
+                        state = pullToRefreshState,
                     )
                 }
             }
-        }
-        if (pullToRefreshState.isRefreshing) {
-            PullToRefreshContainer(
-                modifier = Modifier.align(Alignment.TopCenter),
-                state = pullToRefreshState,
-            )
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.leejihun.supergene.assignment.feature.home
+package com.leejihun.supergene.assignment.feature.home.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
