@@ -22,7 +22,6 @@ dependencyResolutionManagement {
 include(":app")
 
 include(":core:data")
-include(":core:database")
 include(":core:domain")
 include(":core:designsystem")
 include(":core:network")

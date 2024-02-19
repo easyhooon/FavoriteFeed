@@ -23,7 +23,6 @@ android {
 dependencies {
     implementations(
         projects.core.data,
-        projects.core.database,
         projects.core.designsystem,
         projects.core.domain,
         projects.core.network,

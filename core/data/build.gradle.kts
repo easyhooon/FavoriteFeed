@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.supergene.android.library)
     alias(libs.plugins.supergene.android.hilt)
     alias(libs.plugins.supergene.android.retrofit)
+    alias(libs.plugins.supergene.android.room)
     id("kotlinx-serialization")
 }
 
@@ -15,9 +16,9 @@ dependencies {
     implementations(
         projects.core.domain,
         projects.core.network,
-        projects.core.database,
 
         libs.androidx.paging.runtime,
+        libs.androidx.room.paging,
         libs.timber,
     )
 }
