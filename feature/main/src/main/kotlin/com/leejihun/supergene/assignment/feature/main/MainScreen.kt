@@ -47,6 +47,7 @@ internal fun MainScreen(
     navigator: MainNavController = rememberMainNavController(),
     viewModel: MainViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
     val snackBarHostState = remember { SnackbarHostState() }
 
     val coroutineScope = rememberCoroutineScope()
@@ -66,7 +67,7 @@ internal fun MainScreen(
         coroutineScope.launch {
             val snackBarResult = snackBarHostState.showSnackbar(
                 message = "${userInfo.name.title} ${userInfo.name.first} ${userInfo.name.last} 님을 즐겨찾기에서 삭제하였습니다.",
-                actionLabel = "Undo",
+                actionLabel = context.getString(R.string.undo),
                 duration = SnackbarDuration.Short,
             )
             when (snackBarResult) {
