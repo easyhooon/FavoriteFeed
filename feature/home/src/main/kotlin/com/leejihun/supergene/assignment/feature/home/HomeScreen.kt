@@ -8,9 +8,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,6 +30,7 @@ import com.leejihun.supergene.assignment.core.designsystem.component.SupergeneTo
 import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
 import com.leejihun.supergene.assignment.domain.entity.UserNameEntity
 import com.leejihun.supergene.assignment.domain.entity.UserPictureEntity
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Suppress("unused")
@@ -69,27 +76,50 @@ internal fun HomeTopAppBar(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeContent(
     randomUserList: LazyPagingItems<UserInfoEntity>,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-    ) {
-        items(
-            count = randomUserList.itemCount,
-            key = randomUserList.itemKey(key = { user -> user.email }),
-            contentType = randomUserList.itemContentType(),
-        ) { index ->
-            randomUserList[index]?.let { user ->
-                HomeCard(
-                    imageUrl = user.picture.large,
-                    name = "${user.name.title} ${user.name.first} ${user.name.last}",
-                    email = user.email,
-                )
+    val pullToRefreshState = rememberPullToRefreshState()
+    val lazyListState = rememberLazyListState()
+
+    LaunchedEffect(key1 = pullToRefreshState.isRefreshing) {
+        if (pullToRefreshState.isRefreshing) {
+            randomUserList.refresh()
+            delay(1000)
+            pullToRefreshState.endRefresh()
+            lazyListState.scrollToItem(0)
+        }
+    }
+
+    Box(modifier = Modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
+        LazyColumn(
+            modifier = modifier.fillMaxSize(),
+            state = lazyListState,
+            verticalArrangement = Arrangement.spacedBy(24.dp),
+        ) {
+            items(
+                count = randomUserList.itemCount,
+                key = randomUserList.itemKey(key = { user -> user.email }),
+                contentType = randomUserList.itemContentType(),
+            ) { index ->
+                randomUserList[index]?.let { user ->
+                    HomeCard(
+                        imageUrl = user.picture.large,
+                        name = "${user.name.title} ${user.name.first} ${user.name.last}",
+                        email = user.email,
+                    )
+                }
+
             }
+        }
+        if (pullToRefreshState.isRefreshing) {
+            PullToRefreshContainer(
+                modifier = Modifier.align(Alignment.TopCenter),
+                state = pullToRefreshState,
+            )
         }
     }
 }
