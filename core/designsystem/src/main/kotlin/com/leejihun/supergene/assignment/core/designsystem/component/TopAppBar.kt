@@ -1,4 +1,4 @@
-package com.leejihun.supergene.assignment.core.designsystem
+package com.leejihun.supergene.assignment.core.designsystem.component
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background

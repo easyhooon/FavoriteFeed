@@ -13,8 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.leejihun.supergene.assignment.core.designsystem.R
-import com.leejihun.supergene.assignment.core.designsystem.SupergeneTopAppBar
+import com.leejihun.supergene.assignment.core.designsystem.component.SupergeneTopAppBar
 
+@Suppress("unused")
 @Composable
 internal fun FavoriteRoute(
     padding: PaddingValues,
@@ -38,7 +39,7 @@ internal fun HomeScreen(
     ) {
         FavoritesTopAppBar(modifier = Modifier.statusBarsPadding())
         Box(modifier = Modifier.fillMaxSize()) {
-            HomeContent()
+            FavoriteContent()
         }
     }
 }
@@ -54,7 +55,7 @@ internal fun FavoritesTopAppBar(
 }
 
 @Composable
-internal fun HomeContent() {}
+internal fun FavoriteContent() {}
 
 @Preview(showBackground = true)
 @Composable
