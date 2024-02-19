@@ -45,6 +45,8 @@ internal fun HomeRoute(
     HomeScreen(
         padding = padding,
         randomUserList = randomUserList,
+        insertFavoritesUser = viewModel::insertFavoritesUser,
+        deleteFavoritesUser = viewModel::deleteFavoritesUser,
     )
 }
 
@@ -52,6 +54,8 @@ internal fun HomeRoute(
 internal fun HomeScreen(
     padding: PaddingValues,
     randomUserList: LazyPagingItems<UserInfoEntity>,
+    insertFavoritesUser: (UserInfoEntity) -> Unit,
+    deleteFavoritesUser: (UserInfoEntity) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -61,7 +65,11 @@ internal fun HomeScreen(
     ) {
         HomeTopAppBar(modifier = Modifier.statusBarsPadding())
         Box(modifier = Modifier.fillMaxSize()) {
-            HomeContent(randomUserList = randomUserList)
+            HomeContent(
+                randomUserList = randomUserList,
+                insertFavoritesUser = insertFavoritesUser,
+                deleteFavoritesUser = deleteFavoritesUser,
+            )
         }
     }
 }
@@ -80,6 +88,8 @@ internal fun HomeTopAppBar(
 @Composable
 internal fun HomeContent(
     randomUserList: LazyPagingItems<UserInfoEntity>,
+    insertFavoritesUser: (UserInfoEntity) -> Unit,
+    deleteFavoritesUser: (UserInfoEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val pullToRefreshState = rememberPullToRefreshState()
@@ -105,11 +115,11 @@ internal fun HomeContent(
                 key = randomUserList.itemKey(key = { user -> user.email }),
                 contentType = randomUserList.itemContentType(),
             ) { index ->
-                randomUserList[index]?.let { user ->
+                randomUserList[index]?.let { userInfo ->
                     HomeCard(
-                        imageUrl = user.picture.large,
-                        name = "${user.name.title} ${user.name.first} ${user.name.last}",
-                        email = user.email,
+                        userInfo = userInfo,
+                        insertFavoritesUser = insertFavoritesUser,
+                        deleteFavoritesUser = deleteFavoritesUser,
                     )
                 }
 
@@ -142,6 +152,8 @@ internal fun HomeScreenPreview() {
     HomeScreen(
         padding = PaddingValues(0.dp),
         randomUserList = randomUserList,
+        insertFavoritesUser = { _ -> },
+        deleteFavoritesUser = { _ -> },
     )
 }
 

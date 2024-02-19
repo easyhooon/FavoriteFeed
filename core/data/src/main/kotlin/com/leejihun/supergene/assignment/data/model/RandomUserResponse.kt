@@ -1,5 +1,7 @@
 package com.leejihun.supergene.assignment.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -12,9 +14,11 @@ data class RandomUserResponse(
 )
 
 @Serializable
+@Entity(tableName = "favorites_user")
 data class UserInfo(
     @SerialName("name")
     val name: UserName,
+    @PrimaryKey(autoGenerate = false)
     @SerialName("email")
     val email: String,
     @SerialName("picture")

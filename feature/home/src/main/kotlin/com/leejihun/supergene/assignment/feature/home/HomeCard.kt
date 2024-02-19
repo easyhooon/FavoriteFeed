@@ -29,12 +29,15 @@ import androidx.compose.ui.unit.sp
 import com.leejihun.supergene.assignment.core.designsystem.ComponentPreview
 import com.leejihun.supergene.assignment.core.designsystem.R
 import com.leejihun.supergene.assignment.core.designsystem.component.NetworkImage
+import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
+import com.leejihun.supergene.assignment.domain.entity.UserNameEntity
+import com.leejihun.supergene.assignment.domain.entity.UserPictureEntity
 
 @Composable
 fun HomeCard(
-    imageUrl: String,
-    name: String,
-    email: String,
+    userInfo: UserInfoEntity,
+    insertFavoritesUser: (UserInfoEntity) -> Unit,
+    deleteFavoritesUser: (UserInfoEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -43,7 +46,7 @@ fun HomeCard(
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         NetworkImage(
-            imageUrl = imageUrl,
+            imageUrl = userInfo.picture.large,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
@@ -52,7 +55,7 @@ fun HomeCard(
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = name,
+            text = "${userInfo.name.title} ${userInfo.name.first} ${userInfo.name.last}",
             fontSize = 18.sp,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.W600,
@@ -61,7 +64,7 @@ fun HomeCard(
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = email,
+            text = userInfo.email,
             fontSize = 16.sp,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.W400,
@@ -75,7 +78,7 @@ fun HomeCard(
                 .padding(horizontal = 100.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(Color.Black)
-                .clickable {},
+                .clickable { insertFavoritesUser(userInfo) },
         ) {
             Row(
                 modifier = Modifier
@@ -101,9 +104,13 @@ fun HomeCard(
 @Composable
 fun HomeCardPreview() {
     HomeCard(
-        imageUrl = "",
-        name = "Ms. Lukas Novak",
-        email = "dennis.anderson@gmail.com",
+        userInfo = UserInfoEntity(
+            name = UserNameEntity("Ms.", "Lukas", "Novak"),
+            email = "dennis.anderson@gmail.com",
+            picture = UserPictureEntity("", "", ""),
+        ),
+        insertFavoritesUser = { _ -> },
+        deleteFavoritesUser = { _ -> },
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)

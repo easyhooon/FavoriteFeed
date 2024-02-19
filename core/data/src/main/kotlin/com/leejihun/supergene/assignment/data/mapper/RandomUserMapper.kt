@@ -26,6 +26,14 @@ internal fun UserInfo.toEntity(): UserInfoEntity {
     )
 }
 
+internal fun UserInfoEntity.toModel(): UserInfo {
+    return UserInfo(
+        name = name.toModel(),
+        email = email,
+        picture = picture.toModel(),
+    )
+}
+
 internal fun UserName.toEntity(): UserNameEntity {
     return UserNameEntity(
         title = title,
@@ -34,8 +42,24 @@ internal fun UserName.toEntity(): UserNameEntity {
     )
 }
 
+internal fun UserNameEntity.toModel(): UserName {
+    return UserName(
+        title = title,
+        first = first,
+        last = last,
+    )
+}
+
 internal fun UserPicture.toEntity(): UserPictureEntity {
     return UserPictureEntity(
+        large = large,
+        medium = medium,
+        thumbnail = thumbnail,
+    )
+}
+
+internal fun UserPictureEntity.toModel(): UserPicture {
+    return UserPicture(
         large = large,
         medium = medium,
         thumbnail = thumbnail,

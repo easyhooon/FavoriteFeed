@@ -34,7 +34,8 @@ class RandomUserPagingSource(
         return try {
             val pageNumber = params.key ?: STARTING_PAGE_INDEX
             val response = service.getRandomUserList(
-                results = PAGING_SIZE,
+                // TODO 문제 지점
+                results = params.loadSize,
                 inc = "name,email,picture",
                 page = pageNumber,
             )

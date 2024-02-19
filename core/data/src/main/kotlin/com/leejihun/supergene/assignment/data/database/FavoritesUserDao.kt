@@ -17,12 +17,12 @@ import com.leejihun.supergene.assignment.data.model.UserInfo
 
 @Dao
 interface FavoritesUserDao {
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
-  suspend fun insertFavoritesUser(userInfo: UserInfo)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFavoritesUser(userInfo: UserInfo)
 
-  @Delete
-  suspend fun deleteFavoritesUser(userInfo: UserInfo)
+    @Delete
+    suspend fun deleteFavoritesUser(userInfo: UserInfo)
 
-  @Query("SELECT * FROM favorites_user")
-  fun getFavoritesUserList(): PagingSource<Int, UserInfo>
+    @Query("SELECT * FROM favorites_user")
+    fun getFavoritesUserList(): PagingSource<Int, UserInfo>
 }

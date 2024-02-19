@@ -13,11 +13,11 @@ import androidx.room.TypeConverters
 import com.leejihun.supergene.assignment.data.model.UserInfo
 
 @Database(
-  entities = [UserInfo::class],
-  version = 1,
-  exportSchema = false,
+    entities = [UserInfo::class],
+    version = 1,
+    exportSchema = false,
 )
 @TypeConverters(OrmConverter::class)
 abstract class FavoritesUserDatabase : RoomDatabase() {
-  abstract fun favoritesUserDao(): FavoritesUserDao
+    abstract fun favoritesUserDao(): FavoritesUserDao
 }

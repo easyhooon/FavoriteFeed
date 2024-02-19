@@ -1,5 +1,7 @@
 package com.leejihun.supergene.assignment.data.di
 
+import com.leejihun.supergene.assignment.data.datasource.FavoritesUserDataSource
+import com.leejihun.supergene.assignment.data.datasource.FavoritesUserDataSourceImpl
 import com.leejihun.supergene.assignment.data.datasource.RandomUserDataSource
 import com.leejihun.supergene.assignment.data.datasource.RandomUserDataSourceImpl
 import dagger.Binds
@@ -15,4 +17,8 @@ abstract class DataSourceModule {
     @Singleton
     @Binds
     abstract fun bindRandomUserDataSource(randomUserDataSourceImpl: RandomUserDataSourceImpl): RandomUserDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindFavoritesUserDataSource(favoritesUserDataSourceImpl: FavoritesUserDataSourceImpl): FavoritesUserDataSource
 }
