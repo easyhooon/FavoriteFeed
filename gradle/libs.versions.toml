@@ -38,6 +38,7 @@ lottie-compose = "5.2.0"
 timber = "5.0.1"
 ksp = "1.9.22-1.0.17"
 compose-extensions = "1.6.1"
+compose-stable-marker = "1.0.3"
 
 [libraries]
 
@@ -91,6 +92,7 @@ javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "j
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-compose" }
 system-ui-controller = { group = "tech.thdev", name = "extensions-compose-system-ui-controller", version.ref = "compose-extensions" }
+compose-stable-marker = { group = "com.github.skydoves", name = "compose-stable-marker", version.ref = "compose-stable-marker"}
 
 [plugins]
 
