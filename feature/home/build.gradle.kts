@@ -12,8 +12,8 @@ dependencies {
     implementations(
         libs.androidx.core,
         libs.androidx.activity.compose,
+        libs.androidx.paging.compose,
         libs.timber,
         libs.system.ui.controller,
-        libs.coil.compose,
     )
 }

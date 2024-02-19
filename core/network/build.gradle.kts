@@ -9,10 +9,16 @@ plugins {
 
 android {
     namespace = "com.leejihun.supergene.assignment.core.data"
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
     implementations(
         projects.core.domain,
+
+        libs.timber,
     )
 }
