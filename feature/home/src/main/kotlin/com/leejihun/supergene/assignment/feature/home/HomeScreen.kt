@@ -36,6 +36,7 @@ import com.leejihun.supergene.assignment.feature.home.component.LoadStateFooter
 import com.leejihun.supergene.assignment.feature.home.component.LoadingIndicator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import timber.log.Timber
 
 @Composable
 internal fun HomeRoute(
@@ -97,20 +98,20 @@ internal fun HomeContent(
     val pullToRefreshState = rememberPullToRefreshState()
     val lazyListState = rememberLazyListState()
 
-    val isLoading = randomUserList.loadState.refresh is LoadState.Loading
+    val isFirstLoading = randomUserList.loadState.refresh is LoadState.Loading && randomUserList.itemCount == 0
     val isError = randomUserList.loadState.refresh is LoadState.Error
 
     LaunchedEffect(key1 = pullToRefreshState.isRefreshing) {
         if (pullToRefreshState.isRefreshing) {
-            randomUserList.refresh()
+            Timber.d("pullToRefresh 실행")
             delay(1000)
+            randomUserList.refresh()
             pullToRefreshState.endRefresh()
-            lazyListState.scrollToItem(0)
         }
     }
 
     when {
-        isLoading -> LoadingIndicator()
+        isFirstLoading -> LoadingIndicator(modifier = Modifier.fillMaxSize())
         isError -> ErrorScreen(onClickRetryButton = { randomUserList.retry() })
         else -> {
             Box(modifier = Modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
@@ -136,7 +137,8 @@ internal fun HomeContent(
                     item {
                         LoadStateFooter(
                             loadState = randomUserList.loadState.append,
-                            onRetryClick = { randomUserList.retry() }
+                            onRetryClick = { randomUserList.retry() },
+                            itemCount = randomUserList.itemCount,
                         )
                     }
                 }

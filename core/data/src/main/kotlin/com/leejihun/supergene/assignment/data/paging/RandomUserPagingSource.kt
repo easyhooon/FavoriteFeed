@@ -23,11 +23,11 @@ class RandomUserPagingSource(
         //  * nextKey == null -> anchorPage is the last page.
         //  * both prevKey and nextKey null -> anchorPage is the initial page, so
         //    just return null.
-        Timber.d("getRefreshKey 호출")
-        return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
-                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
-        }
+//        return state.anchorPosition?.let { anchorPosition ->
+//            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+//                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+//        }
+        return null
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UserInfo> {
@@ -49,7 +49,8 @@ class RandomUserPagingSource(
             }
             LoadResult.Page(
                 data = data,
-                prevKey = if (position == STARTING_PAGE_INDEX) null else position - 1,
+                // prevKey = if (position == STARTING_PAGE_INDEX) null else position - 1,
+                prevKey = null,
                 nextKey = nextKey,
             )
         } catch (exception: IOException) {

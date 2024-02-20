@@ -13,6 +13,7 @@ import com.leejihun.supergene.assignment.core.designsystem.ComponentPreview
 fun LoadStateFooter(
     loadState: LoadState,
     onRetryClick: () -> Unit,
+    itemCount: Int,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -21,20 +22,45 @@ fun LoadStateFooter(
             .padding(8.dp),
     ) {
         when (loadState) {
-            is LoadState.Loading -> LoadingIndicator()
+            is LoadState.Loading -> LoadingIndicator(modifier.fillMaxWidth())
 
             is LoadState.Error -> LoadErrorScreen(onRetryClick = onRetryClick)
 
-            else -> EndOfResultScreen()
+            is LoadState.NotLoading -> {
+                if (loadState.endOfPaginationReached && itemCount > 0) {
+                    EndOfResultScreen()
+                }
+            }
         }
     }
 }
 
 @ComponentPreview
 @Composable
-fun LoadStateFooterPreview() {
+fun LoadStateFooterLoadingPreview() {
     LoadStateFooter(
         loadState = LoadState.Loading,
         onRetryClick = {},
+        itemCount = 4,
+    )
+}
+
+@ComponentPreview
+@Composable
+fun LoadStateFooterErrorPreview() {
+    LoadStateFooter(
+        loadState = LoadState.Error(Exception("Network Error")),
+        onRetryClick = {},
+        itemCount = 4,
+    )
+}
+
+@ComponentPreview
+@Composable
+fun LoadStateFooterEndOfResultPreview() {
+    LoadStateFooter(
+        loadState = LoadState.NotLoading(true),
+        onRetryClick = {},
+        itemCount = 4,
     )
 }
