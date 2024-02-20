@@ -3,26 +3,26 @@ package com.leejihun.supergene.assignment.data.datasource
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.leejihun.supergene.assignment.data.database.FavoritesUserDatabase
+import com.leejihun.supergene.assignment.data.database.FavoritesUserDao
 import com.leejihun.supergene.assignment.data.model.UserInfo
 import com.leejihun.supergene.assignment.data.util.Constants
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class FavoritesUserDataSourceImpl @Inject constructor(
-    private val database: FavoritesUserDatabase,
+    private val dao: FavoritesUserDao,
 ) : FavoritesUserDataSource {
     override suspend fun insertFavoritesUser(userInfo: UserInfo) {
-        database.favoritesUserDao().insertFavoritesUser(userInfo)
+        dao.insertFavoritesUser(userInfo)
     }
 
     override suspend fun deleteFavoritesUser(userInfo: UserInfo) {
-        database.favoritesUserDao().deleteFavoritesUser(userInfo)
+        dao.deleteFavoritesUser(userInfo)
     }
 
     override fun getFavoritesUserList(): Flow<PagingData<UserInfo>> {
         val pagingSourceFactory = {
-            database.favoritesUserDao().getFavoritesUserList()
+            dao.getFavoritesUserList()
         }
 
         return Pager(

@@ -15,6 +15,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.leejihun.supergene.assignment.data.model.UserInfo
 
+// DAO: Data Access Object, 데이터에 접근할 수 있는 메서드를 정의해놓은 인터페이스
 @Dao
 interface FavoritesUserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
