@@ -31,27 +31,26 @@ class RandomUserPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UserInfo> {
+        val position = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val pageNumber = params.key ?: STARTING_PAGE_INDEX
             val response = service.getRandomUserList(
-                // TODO 문제 지점
                 results = params.loadSize,
                 inc = "name,email,picture",
-                page = pageNumber,
+                page = position,
             )
-
             val endOfPaginationReached = response.results.isEmpty()
-
+            val data = response.results
+            val nextKey = if (endOfPaginationReached) {
+                null
+            } else {
+                // initial load size = 3 * NETWORK_PAGE_SIZE
+                // ensure we're not requesting duplicating items, at the 2nd request
+                position + (params.loadSize / PAGING_SIZE)
+            }
             LoadResult.Page(
-                data = response.results,
-                prevKey = if (pageNumber == STARTING_PAGE_INDEX) null else pageNumber - 1,
-                nextKey = if (endOfPaginationReached) {
-                    null
-                } else {
-                    // initial load size = 3 * NETWORK_PAGE_SIZE
-                    // ensure we're not requesting duplicating items, at the 2nd request
-                    pageNumber + (params.loadSize / PAGING_SIZE)
-                },
+                data = data,
+                prevKey = if (position == STARTING_PAGE_INDEX) null else position - 1,
+                nextKey = nextKey,
             )
         } catch (exception: IOException) {
             Timber.e(exception)
