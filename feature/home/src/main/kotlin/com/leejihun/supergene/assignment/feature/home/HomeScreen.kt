@@ -37,11 +37,9 @@ import com.leejihun.supergene.assignment.feature.home.component.LoadingIndicator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 
-@Suppress("unused")
 @Composable
 internal fun HomeRoute(
     padding: PaddingValues,
-    onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val randomUserList = viewModel.randomUserList.collectAsLazyPagingItems()

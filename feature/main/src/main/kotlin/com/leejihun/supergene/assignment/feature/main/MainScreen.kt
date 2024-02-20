@@ -33,14 +33,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import com.leejihun.supergene.assignment.core.designsystem.ComponentPreview
+import com.leejihun.supergene.assignment.core.designsystem.R
+import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
+import com.leejihun.supergene.assignment.feature.favorites.navigation.favoritesNavGraph
 import com.leejihun.supergene.assignment.feature.home.navigation.homeNavGraph
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.launch
-import java.net.UnknownHostException
-import com.leejihun.supergene.assignment.core.designsystem.R
-import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
-import com.leejihun.supergene.assignment.feature.favorites.navigation.favoritesNavGraph
 
 @Composable
 internal fun MainScreen(
@@ -49,19 +48,7 @@ internal fun MainScreen(
 ) {
     val context = LocalContext.current
     val snackBarHostState = remember { SnackbarHostState() }
-
     val coroutineScope = rememberCoroutineScope()
-    val resource = LocalContext.current.resources
-    val onShowErrorSnackBar: (throwable: Throwable?) -> Unit = { throwable ->
-        coroutineScope.launch {
-            snackBarHostState.showSnackbar(
-                when (throwable) {
-                    is UnknownHostException -> resource.getString(R.string.error_message_network)
-                    else -> resource.getString(R.string.error_message_unknown)
-                },
-            )
-        }
-    }
 
     val onShowSnackBar: (userInfo: UserInfoEntity) -> Unit = { userInfo ->
         coroutineScope.launch {
@@ -89,10 +76,7 @@ internal fun MainScreen(
                     navController = navigator.navController,
                     startDestination = navigator.startDestination,
                 ) {
-                    homeNavGraph(
-                        padding = padding,
-                        onShowErrorSnackBar = onShowErrorSnackBar,
-                    )
+                    homeNavGraph(padding = padding)
 
                     favoritesNavGraph(
                         padding = padding,
