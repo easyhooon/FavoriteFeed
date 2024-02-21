@@ -25,6 +25,8 @@ import com.leejihun.supergene.assignment.core.designsystem.component.SupergeneTo
 import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
 import com.leejihun.supergene.assignment.domain.entity.UserNameEntity
 import com.leejihun.supergene.assignment.domain.entity.UserPictureEntity
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 internal fun FavoritesRoute(
@@ -36,7 +38,7 @@ internal fun FavoritesRoute(
 
     FavoritesScreen(
         padding = padding,
-        favoritesUserList = favoritesUserList,
+        favoritesUserList = favoritesUserList.toImmutableList(),
         deleteFavoritesUser = viewModel::deleteFavoritesUser,
         onShowSnackBar = onShowSnackBar,
     )
@@ -45,7 +47,7 @@ internal fun FavoritesRoute(
 @Composable
 internal fun FavoritesScreen(
     padding: PaddingValues,
-    favoritesUserList: List<UserInfoEntity>,
+    favoritesUserList: ImmutableList<UserInfoEntity>,
     deleteFavoritesUser: (UserInfoEntity) -> Unit,
     onShowSnackBar: (UserInfoEntity) -> Unit,
 ) {
@@ -79,7 +81,7 @@ internal fun FavoritesTopAppBar(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun FavoriteContent(
-    favoritesUserList: List<UserInfoEntity>,
+    favoritesUserList: ImmutableList<UserInfoEntity>,
     deleteFavoritesUser: (UserInfoEntity) -> Unit,
     onShowSnackBar: (UserInfoEntity) -> Unit,
     modifier: Modifier = Modifier,
@@ -124,7 +126,7 @@ internal fun FavoritesScreenPreview() {
 
     FavoritesScreen(
         padding = PaddingValues(0.dp),
-        favoritesUserList = favoritesUsers,
+        favoritesUserList = favoritesUsers.toImmutableList(),
         onShowSnackBar = { _ -> },
         deleteFavoritesUser = { _ -> },
     )

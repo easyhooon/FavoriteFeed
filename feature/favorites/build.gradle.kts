@@ -12,6 +12,7 @@ dependencies {
     implementations(
         projects.core.domain,
 
+        libs.kotlinx.collections.immutable,
         libs.androidx.core,
         libs.androidx.activity.compose,
         libs.androidx.paging.compose,
