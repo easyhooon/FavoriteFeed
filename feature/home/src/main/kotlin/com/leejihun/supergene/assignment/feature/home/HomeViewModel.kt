@@ -24,7 +24,7 @@ class HomeViewModel @Inject constructor(
         .cachedIn(viewModelScope)
         .combine(favoritesUserList) { pagingData, favoritesUsers ->
             pagingData.map { userInfo ->
-                userInfo.copy(isLiked = favoritesUsers.find { it.email == userInfo.email} != null )
+                userInfo.copy(isLiked = favoritesUsers.find { it.email == userInfo.email } != null)
             }
         }
 

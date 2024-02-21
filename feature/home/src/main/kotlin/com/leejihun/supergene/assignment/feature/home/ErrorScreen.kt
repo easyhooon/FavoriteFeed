@@ -49,7 +49,7 @@ fun ErrorScreen(
                     contentColor = Color.White,
                     disabledContainerColor = Color.DarkGray,
                     disabledContentColor = Color.LightGray,
-                )
+                ),
             ) {
                 Text(
                     text = stringResource(id = R.string.retry),

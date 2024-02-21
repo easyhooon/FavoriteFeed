@@ -17,6 +17,6 @@ fun NavGraphBuilder.homeNavGraph(
     padding: PaddingValues,
 ) {
     composable(route = HOME_ROUTE) {
-        HomeRoute(padding = padding,)
+        HomeRoute(padding = padding)
     }
 }

@@ -39,7 +39,7 @@ fun LikeButton(
             .border(
                 width = 1.dp,
                 color = Color.LightGray,
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
             )
             .clickable {
                 if (userInfo.isLiked) deleteFavoritesUser(userInfo)
@@ -94,4 +94,3 @@ fun LikeButtonCheckedPreview() {
         deleteFavoritesUser = { _ -> },
     )
 }
-
