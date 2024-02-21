@@ -1,7 +1,7 @@
-package com.leejihun.supergene.assignment.data.di
+package com.leejihun.supergene.assignment.core.database.di
 
-import com.leejihun.supergene.assignment.data.database.FavoritesUserDao
-import com.leejihun.supergene.assignment.data.database.FavoritesUserDatabase
+import com.leejihun.supergene.assignment.core.database.FavoritesUserDao
+import com.leejihun.supergene.assignment.core.database.FavoritesUserDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

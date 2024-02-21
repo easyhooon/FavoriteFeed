@@ -1,8 +1,8 @@
-package com.leejihun.supergene.assignment.data.di
+package com.leejihun.supergene.assignment.core.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.leejihun.supergene.assignment.data.database.FavoritesUserDatabase
+import com.leejihun.supergene.assignment.core.database.FavoritesUserDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

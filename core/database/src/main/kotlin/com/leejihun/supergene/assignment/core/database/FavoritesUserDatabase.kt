@@ -5,17 +5,17 @@
  * Please see full license: https://github.com/Wedemy/eggeum-android/blob/main/LICENSE
  */
 
-package com.leejihun.supergene.assignment.data.database
+package com.leejihun.supergene.assignment.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.leejihun.supergene.assignment.data.model.UserInfo
+import com.leejihun.supergene.assignment.core.database.entity.UserInfoEntity
 
 @Database(
-    entities = [UserInfo::class],
+    entities = [UserInfoEntity::class],
     version = 1,
-    exportSchema = false,
+    exportSchema = true,
 )
 @TypeConverters(OrmConverter::class)
 abstract class FavoritesUserDatabase : RoomDatabase() {

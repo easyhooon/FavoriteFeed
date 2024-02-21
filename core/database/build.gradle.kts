@@ -3,20 +3,17 @@
 plugins {
     alias(libs.plugins.supergene.android.library)
     alias(libs.plugins.supergene.android.hilt)
-    alias(libs.plugins.supergene.android.retrofit)
+    alias(libs.plugins.supergene.android.room)
     id("kotlinx-serialization")
 }
 
 android {
-    namespace = "com.leejihun.supergene.assignment.core.network"
-
-    buildFeatures {
-        buildConfig = true
-    }
+    namespace = "com.leejihun.supergene.assignment.core.database"
 }
 
 dependencies {
     implementations(
+        // libs.androidx.room.paging,
         libs.timber,
     )
 }
