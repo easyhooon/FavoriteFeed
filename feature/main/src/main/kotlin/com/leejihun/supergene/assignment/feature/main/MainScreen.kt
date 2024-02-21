@@ -75,6 +75,7 @@ internal fun MainScreen(
                 NavHost(
                     navController = navigator.navController,
                     startDestination = navigator.startDestination,
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     homeNavGraph(padding = padding)
 
