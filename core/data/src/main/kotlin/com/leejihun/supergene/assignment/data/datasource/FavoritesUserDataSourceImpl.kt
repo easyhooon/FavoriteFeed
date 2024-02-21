@@ -19,20 +19,6 @@ class FavoritesUserDataSourceImpl @Inject constructor(
         dao.deleteFavoritesUser(userInfo.toDBEntity())
     }
 
-//    override fun getFavoritesUserList(): Flow<PagingData<UserInfo>> {
-//        val pagingSourceFactory = {
-//            dao.getFavoritesUserList()
-//        }
-//
-//        return Pager(
-//            config = PagingConfig(
-//                pageSize = Constants.PAGING_SIZE,
-//                enablePlaceholders = false,
-//            ),
-//            pagingSourceFactory = pagingSourceFactory,
-//        ).flow
-//    }
-
     override fun getFavoritesUserList(): Flow<List<UserInfo>> {
         return dao.getFavoritesUserList().map { users ->
             users.map { user ->

@@ -32,7 +32,6 @@ internal fun FavoritesRoute(
     onShowSnackBar: (UserInfoEntity) -> Unit,
     viewModel: FavoritesViewModel = hiltViewModel(),
 ) {
-    // val favoritesUserList = viewModel.favoritesUserList.collectAsLazyPagingItems()
     val favoritesUserList by viewModel.favoritesUserList.collectAsState(initial = emptyList())
 
     FavoritesScreen(
@@ -46,7 +45,6 @@ internal fun FavoritesRoute(
 @Composable
 internal fun FavoritesScreen(
     padding: PaddingValues,
-    // favoritesUserList: LazyPagingItems<UserInfoEntity>,
     favoritesUserList: List<UserInfoEntity>,
     deleteFavoritesUser: (UserInfoEntity) -> Unit,
     onShowSnackBar: (UserInfoEntity) -> Unit,
@@ -81,7 +79,6 @@ internal fun FavoritesTopAppBar(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun FavoriteContent(
-    // favoritesUserList: LazyPagingItems<UserInfoEntity>,
     favoritesUserList: List<UserInfoEntity>,
     deleteFavoritesUser: (UserInfoEntity) -> Unit,
     onShowSnackBar: (UserInfoEntity) -> Unit,
@@ -92,25 +89,9 @@ internal fun FavoriteContent(
         verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
         items(
-//            count = favoritesUserList.itemCount,
-//            key = favoritesUserList.itemKey(key = { user -> user.email }),
-//            contentType = favoritesUserList.itemContentType(),
             items = favoritesUserList,
             key = { it.email },
         ) { userInfo ->
-//            favoritesUserList[index]?.let { userInfo ->
-//                FavoritesCard(
-//                    userInfo = userInfo,
-//                    deleteFavoritesUser = deleteFavoritesUser,
-//                    onShowSnackBar = onShowSnackBar,
-//                    modifier = Modifier.animateItemPlacement(
-//                        animationSpec = tween(
-//                            durationMillis = 500,
-//                            easing = LinearOutSlowInEasing,
-//                        ),
-//                    ),
-//                )
-//            }
             FavoritesCard(
                 userInfo = userInfo,
                 deleteFavoritesUser = deleteFavoritesUser,
@@ -140,11 +121,9 @@ internal fun FavoritesScreenPreview() {
             ),
         )
     }
-//    val favoritesUserList = MutableStateFlow(PagingData.from(favoritesUsers)).collectAsLazyPagingItems()
 
     FavoritesScreen(
         padding = PaddingValues(0.dp),
-        // favoritesUserList = favoritesUserList,
         favoritesUserList = favoritesUsers,
         onShowSnackBar = { _ -> },
         deleteFavoritesUser = { _ -> },

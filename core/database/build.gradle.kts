@@ -13,7 +13,6 @@ android {
 
 dependencies {
     implementations(
-        // libs.androidx.room.paging,
         libs.timber,
     )
 }

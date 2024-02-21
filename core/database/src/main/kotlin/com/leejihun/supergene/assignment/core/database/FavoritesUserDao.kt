@@ -24,9 +24,6 @@ interface FavoritesUserDao {
     @Delete
     suspend fun deleteFavoritesUser(userInfo: UserInfoEntity)
 
-//    @Query("SELECT * FROM favorites_user")
-//    fun getFavoritesUserList(): PagingSource<Int, UserInfo>
-
     @Query("SELECT * FROM favorites_user")
     fun getFavoritesUserList(): Flow<List<UserInfoEntity>>
 }
