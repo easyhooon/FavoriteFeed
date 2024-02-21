@@ -26,4 +26,7 @@ interface FavoritesUserDao {
 
     @Query("SELECT * FROM favorites_user")
     fun getFavoritesUserList(): Flow<List<UserInfoEntity>>
+
+    @Query("UPDATE favorites_user SET is_liked = :isLiked WHERE email = :email")
+    suspend fun updateFavoritesUser(email: String, isLiked: Boolean)
 }

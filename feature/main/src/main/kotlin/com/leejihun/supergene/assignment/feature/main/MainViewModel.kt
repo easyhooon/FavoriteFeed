@@ -14,7 +14,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
     fun insertFavoritesUser(userInfo: UserInfoEntity) {
         viewModelScope.launch {
-            repository.insertFavoritesUser(userInfo)
+            repository.insertFavoritesUser(userInfo.copy(isLiked = true))
         }
     }
 }

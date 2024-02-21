@@ -39,4 +39,8 @@ class RandomUserRepositoryImpl @Inject constructor(
     override suspend fun deleteFavoritesUser(userInfo: UserInfoEntity) {
         localDataSource.deleteFavoritesUser(userInfo.toModel())
     }
+
+    override suspend fun updateFavoritesUser(userInfo: UserInfoEntity) {
+        localDataSource.updateFavoritesUser(userInfo.toModel())
+    }
 }

@@ -26,4 +26,8 @@ class FavoritesUserDataSourceImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun updateFavoritesUser(userInfo: UserInfo) {
+        dao.updateFavoritesUser(userInfo.email, userInfo.isLiked)
+    }
 }
