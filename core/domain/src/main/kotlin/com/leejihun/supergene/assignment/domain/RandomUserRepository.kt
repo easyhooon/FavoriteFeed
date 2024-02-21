@@ -9,5 +9,5 @@ interface RandomUserRepository {
     fun getFavoritesUserList(): Flow<List<UserInfoEntity>>
     suspend fun insertFavoritesUser(userInfo: UserInfoEntity)
     suspend fun deleteFavoritesUser(userInfo: UserInfoEntity)
-    suspend fun updateFavoritesUser(userInfo:UserInfoEntity)
+    suspend fun updateFavoritesUser(userInfo: UserInfoEntity)
 }
