@@ -22,11 +22,11 @@ dependencyResolutionManagement {
 include(":app")
 
 include(":core:data")
-include(":core:domain")
+include(":core:database")
 include(":core:designsystem")
+include(":core:domain")
 include(":core:network")
 
 include(":feature:favorites")
 include(":feature:home")
 include(":feature:main")
-include(":core:database")
