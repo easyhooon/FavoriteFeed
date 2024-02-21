@@ -56,8 +56,8 @@ fun LikeButton(
             horizontalArrangement = Arrangement.Center,
         ) {
             Icon(
-                imageVector = if (userInfo.isLiked) ImageVector.vectorResource(R.drawable.ic_favorite_checked)
-                else ImageVector.vectorResource(R.drawable.ic_favorite_outlined),
+                imageVector = if (userInfo.isLiked) ImageVector.vectorResource(R.drawable.ic_favorite_filled_red)
+                else ImageVector.vectorResource(R.drawable.ic_favorite_outlined_white),
                 contentDescription = "Like Button",
                 tint = Color.Unspecified,
             )

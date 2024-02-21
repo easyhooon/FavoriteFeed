@@ -15,8 +15,8 @@ internal enum class MainTab(
         route = "home_route",
     ),
     FAVORITE(
-        iconResId = R.drawable.ic_favorite,
-        selectedIconResId = R.drawable.ic_favorite_filled,
+        iconResId = R.drawable.ic_favorite_outlined_black,
+        selectedIconResId = R.drawable.ic_favorite_filled_black,
         contentDescription = "즐겨찾기",
         route = "favorites_route",
     ),

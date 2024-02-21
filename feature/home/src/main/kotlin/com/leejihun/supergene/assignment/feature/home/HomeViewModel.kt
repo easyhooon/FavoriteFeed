@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
 
     fun insertFavoritesUser(userInfo: UserInfoEntity) {
         viewModelScope.launch {
-            repository.insertFavoritesUser(userInfo)
+            repository.insertFavoritesUser(userInfo.copy(isLiked = true))
         }
     }
 

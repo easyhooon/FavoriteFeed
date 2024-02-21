@@ -71,7 +71,8 @@ fun FavoritesCard(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_favorite_checked),
+                imageVector = if (userInfo.isLiked) ImageVector.vectorResource(R.drawable.ic_favorite_filled_red)
+                else ImageVector.vectorResource(R.drawable.ic_favorite_outlined_red),
                 contentDescription = "Like Button",
                 modifier = Modifier
                     .padding(8.dp)
