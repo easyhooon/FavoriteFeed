@@ -11,23 +11,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.PagingData
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemContentType
-import androidx.paging.compose.itemKey
 import com.leejihun.supergene.assignment.core.designsystem.DevicePreview
 import com.leejihun.supergene.assignment.core.designsystem.R
 import com.leejihun.supergene.assignment.core.designsystem.component.SupergeneTopAppBar
 import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
 import com.leejihun.supergene.assignment.domain.entity.UserNameEntity
 import com.leejihun.supergene.assignment.domain.entity.UserPictureEntity
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 internal fun FavoritesRoute(
@@ -35,7 +32,8 @@ internal fun FavoritesRoute(
     onShowSnackBar: (UserInfoEntity) -> Unit,
     viewModel: FavoritesViewModel = hiltViewModel(),
 ) {
-    val favoritesUserList = viewModel.favoritesUserList.collectAsLazyPagingItems()
+    // val favoritesUserList = viewModel.favoritesUserList.collectAsLazyPagingItems()
+    val favoritesUserList by viewModel.favoritesUserList.collectAsState(initial = emptyList())
 
     FavoritesScreen(
         padding = padding,
@@ -48,7 +46,8 @@ internal fun FavoritesRoute(
 @Composable
 internal fun FavoritesScreen(
     padding: PaddingValues,
-    favoritesUserList: LazyPagingItems<UserInfoEntity>,
+    // favoritesUserList: LazyPagingItems<UserInfoEntity>,
+    favoritesUserList: List<UserInfoEntity>,
     deleteFavoritesUser: (UserInfoEntity) -> Unit,
     onShowSnackBar: (UserInfoEntity) -> Unit,
 ) {
@@ -82,7 +81,8 @@ internal fun FavoritesTopAppBar(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun FavoriteContent(
-    favoritesUserList: LazyPagingItems<UserInfoEntity>,
+    // favoritesUserList: LazyPagingItems<UserInfoEntity>,
+    favoritesUserList: List<UserInfoEntity>,
     deleteFavoritesUser: (UserInfoEntity) -> Unit,
     onShowSnackBar: (UserInfoEntity) -> Unit,
     modifier: Modifier = Modifier,
@@ -92,23 +92,36 @@ internal fun FavoriteContent(
         verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
         items(
-            count = favoritesUserList.itemCount,
-            key = favoritesUserList.itemKey(key = { user -> user.email }),
-            contentType = favoritesUserList.itemContentType(),
-        ) { index ->
-            favoritesUserList[index]?.let { userInfo ->
-                FavoritesCard(
-                    userInfo = userInfo,
-                    deleteFavoritesUser = deleteFavoritesUser,
-                    onShowSnackBar = onShowSnackBar,
-                    modifier = Modifier.animateItemPlacement(
-                        animationSpec = tween(
-                            durationMillis = 500,
-                            easing = LinearOutSlowInEasing,
-                        ),
+//            count = favoritesUserList.itemCount,
+//            key = favoritesUserList.itemKey(key = { user -> user.email }),
+//            contentType = favoritesUserList.itemContentType(),
+            items = favoritesUserList,
+            key = { it.email },
+        ) { userInfo ->
+//            favoritesUserList[index]?.let { userInfo ->
+//                FavoritesCard(
+//                    userInfo = userInfo,
+//                    deleteFavoritesUser = deleteFavoritesUser,
+//                    onShowSnackBar = onShowSnackBar,
+//                    modifier = Modifier.animateItemPlacement(
+//                        animationSpec = tween(
+//                            durationMillis = 500,
+//                            easing = LinearOutSlowInEasing,
+//                        ),
+//                    ),
+//                )
+//            }
+            FavoritesCard(
+                userInfo = userInfo,
+                deleteFavoritesUser = deleteFavoritesUser,
+                onShowSnackBar = onShowSnackBar,
+                modifier = Modifier.animateItemPlacement(
+                    animationSpec = tween(
+                        durationMillis = 500,
+                        easing = LinearOutSlowInEasing,
                     ),
-                )
-            }
+                ),
+            )
         }
     }
 }
@@ -123,14 +136,16 @@ internal fun FavoritesScreenPreview() {
                 name = UserNameEntity("Mrs", "Sheryl", "Alvarez"),
                 email = "sheryl.alvarez@example.com$i",
                 picture = UserPictureEntity("", "", ""),
+                isLiked = true,
             ),
         )
     }
-    val favoritesUserList = MutableStateFlow(PagingData.from(favoritesUsers)).collectAsLazyPagingItems()
+//    val favoritesUserList = MutableStateFlow(PagingData.from(favoritesUsers)).collectAsLazyPagingItems()
 
     FavoritesScreen(
         padding = PaddingValues(0.dp),
-        favoritesUserList = favoritesUserList,
+        // favoritesUserList = favoritesUserList,
+        favoritesUserList = favoritesUsers,
         onShowSnackBar = { _ -> },
         deleteFavoritesUser = { _ -> },
     )

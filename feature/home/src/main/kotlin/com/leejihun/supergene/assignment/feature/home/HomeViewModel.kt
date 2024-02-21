@@ -3,9 +3,13 @@ package com.leejihun.supergene.assignment.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.leejihun.supergene.assignment.domain.RandomUserRepository
 import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -13,7 +17,16 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val repository: RandomUserRepository,
 ) : ViewModel() {
-    val randomUserList = repository.getUserList().cachedIn(viewModelScope)
+    private val favoritesUserList = repository.getFavoritesUserList()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    val randomUserList = repository.getUserList()
+        .cachedIn(viewModelScope)
+        .combine(favoritesUserList) { pagingData, favoritesUsers ->
+            pagingData.map { userInfo ->
+                userInfo.copy(isLiked = favoritesUsers.find { it.email == userInfo.email} != null )
+            }
+        }
 
     fun insertFavoritesUser(userInfo: UserInfoEntity) {
         viewModelScope.launch {

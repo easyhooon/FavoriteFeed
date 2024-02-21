@@ -93,6 +93,7 @@ fun FavoritesCardPreview() {
             name = UserNameEntity("Ms.", "Lukas", "Novak"),
             email = "dennis.anderson@gmail.com",
             picture = UserPictureEntity("", "", ""),
+            isLiked = true,
         ),
         deleteFavoritesUser = { _ -> },
         onShowSnackBar = { _ -> },

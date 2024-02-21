@@ -163,6 +163,7 @@ internal fun HomeScreenPreview() {
                 name = UserNameEntity("Mrs", "Sheryl", "Alvarez"),
                 email = "sheryl.alvarez@example.com$i",
                 picture = UserPictureEntity("", "", ""),
+                isLiked = true,
             ),
         )
     }

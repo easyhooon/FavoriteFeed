@@ -13,6 +13,7 @@ data class UserInfoEntity(
     val name: UserNameEntity,
     val email: String,
     val picture: UserPictureEntity,
+    val isLiked: Boolean,
 )
 
 @Stable

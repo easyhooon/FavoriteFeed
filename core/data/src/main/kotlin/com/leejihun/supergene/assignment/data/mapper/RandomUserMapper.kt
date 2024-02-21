@@ -23,6 +23,7 @@ internal fun UserInfo.toEntity(): UserInfoEntity {
         name = name.toEntity(),
         email = email,
         picture = picture.toEntity(),
+        isLiked = isLiked,
     )
 }
 
@@ -31,6 +32,7 @@ internal fun UserInfoEntity.toModel(): UserInfo {
         name = name.toModel(),
         email = email,
         picture = picture.toModel(),
+        isLiked = isLiked,
     )
 }
 

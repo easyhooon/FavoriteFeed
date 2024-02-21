@@ -23,6 +23,7 @@ data class UserInfo(
     val email: String,
     @SerialName("picture")
     val picture: UserPicture,
+    val isLiked: Boolean = false,
 )
 
 @Serializable

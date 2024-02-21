@@ -24,9 +24,17 @@ class RandomUserRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getFavoritesUserList(): Flow<PagingData<UserInfoEntity>> {
-        return localDataSource.getFavoritesUserList().map { pagingData ->
-            pagingData.map { user ->
+//    override fun getFavoritesUserList(): Flow<PagingData<UserInfoEntity>> {
+//        return localDataSource.getFavoritesUserList().map { pagingData ->
+//            pagingData.map { user ->
+//                user.toEntity()
+//            }
+//        }
+//    }
+
+    override fun getFavoritesUserList(): Flow<List<UserInfoEntity>> {
+        return localDataSource.getFavoritesUserList().map { users ->
+            users.map { user ->
                 user.toEntity()
             }
         }

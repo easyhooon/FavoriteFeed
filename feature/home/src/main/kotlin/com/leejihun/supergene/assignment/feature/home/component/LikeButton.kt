@@ -1,6 +1,7 @@
 package com.leejihun.supergene.assignment.feature.home.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,8 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import com.leejihun.supergene.assignment.core.designsystem.ComponentPreview
 import com.leejihun.supergene.assignment.core.designsystem.R
 import com.leejihun.supergene.assignment.domain.entity.UserInfoEntity
+import com.leejihun.supergene.assignment.domain.entity.UserNameEntity
+import com.leejihun.supergene.assignment.domain.entity.UserPictureEntity
 
 @Composable
 fun LikeButton(
@@ -31,8 +35,16 @@ fun LikeButton(
             .fillMaxWidth()
             .padding(horizontal = 100.dp)
             .clip(RoundedCornerShape(12.dp))
-            .background(Color.Black)
-            .clickable { insertFavoritesUser(userInfo) },
+            .background(if (userInfo.isLiked) Color.White else Color.Black)
+            .border(
+                width = 1.dp,
+                color = Color.LightGray,
+                shape = RoundedCornerShape(12.dp)
+            )
+            .clickable {
+                if (userInfo.isLiked) deleteFavoritesUser(userInfo)
+                else insertFavoritesUser(userInfo)
+            },
     ) {
         Row(
             modifier = Modifier
@@ -44,10 +56,42 @@ fun LikeButton(
             horizontalArrangement = Arrangement.Center,
         ) {
             Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_favorite_outlined),
+                imageVector = if (userInfo.isLiked) ImageVector.vectorResource(R.drawable.ic_favorite_checked)
+                else ImageVector.vectorResource(R.drawable.ic_favorite_outlined),
                 contentDescription = "Like Button",
                 tint = Color.Unspecified,
             )
         }
     }
 }
+
+@ComponentPreview
+@Composable
+fun LikeButtonPreview() {
+    LikeButton(
+        userInfo = UserInfoEntity(
+            name = UserNameEntity("Mrs", "Sheryl", "Alvarez"),
+            email = "sheryl.alvarez@example.com",
+            picture = UserPictureEntity("", "", ""),
+            isLiked = false,
+        ),
+        insertFavoritesUser = { _ -> },
+        deleteFavoritesUser = { _ -> },
+    )
+}
+
+@ComponentPreview
+@Composable
+fun LikeButtonCheckedPreview() {
+    LikeButton(
+        userInfo = UserInfoEntity(
+            name = UserNameEntity("Mrs", "Sheryl", "Alvarez"),
+            email = "sheryl.alvarez@example.com",
+            picture = UserPictureEntity("", "", ""),
+            isLiked = true,
+        ),
+        insertFavoritesUser = { _ -> },
+        deleteFavoritesUser = { _ -> },
+    )
+}
+
