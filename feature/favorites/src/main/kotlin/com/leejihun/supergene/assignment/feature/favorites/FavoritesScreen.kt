@@ -86,25 +86,29 @@ internal fun FavoriteContent(
     onShowSnackBar: (UserInfoEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-    ) {
-        items(
-            items = favoritesUserList,
-            key = { it.email },
-        ) { userInfo ->
-            FavoritesCard(
-                userInfo = userInfo,
-                deleteFavoritesUser = deleteFavoritesUser,
-                onShowSnackBar = onShowSnackBar,
-                modifier = Modifier.animateItemPlacement(
-                    animationSpec = tween(
-                        durationMillis = 500,
-                        easing = LinearOutSlowInEasing,
+    if (favoritesUserList.isEmpty()) {
+        EmptyScreen(modifier = Modifier.fillMaxSize())
+    } else {
+        LazyColumn(
+            modifier = modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(24.dp),
+        ) {
+            items(
+                items = favoritesUserList,
+                key = { it.email },
+            ) { userInfo ->
+                FavoritesCard(
+                    userInfo = userInfo,
+                    deleteFavoritesUser = deleteFavoritesUser,
+                    onShowSnackBar = onShowSnackBar,
+                    modifier = Modifier.animateItemPlacement(
+                        animationSpec = tween(
+                            durationMillis = 500,
+                            easing = LinearOutSlowInEasing,
+                        ),
                     ),
-                ),
-            )
+                )
+            }
         }
     }
 }
