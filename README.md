@@ -1,4 +1,4 @@
-# supergene-assignment
+# FavoriteFeed
 
 ## Development
 
