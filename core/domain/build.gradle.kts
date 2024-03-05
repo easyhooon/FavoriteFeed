@@ -1,7 +1,7 @@
 @file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
 
 plugins {
-    alias(libs.plugins.supergene.jvm.kotlin)
+    alias(libs.plugins.favoritefeed.jvm.kotlin)
 }
 
 dependencies {

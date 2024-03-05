@@ -1,13 +1,13 @@
 @file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
 
 plugins {
-    alias(libs.plugins.supergene.android.application)
-    alias(libs.plugins.supergene.android.application.compose)
-    alias(libs.plugins.supergene.android.hilt)
+    alias(libs.plugins.favoritefeed.android.application)
+    alias(libs.plugins.favoritefeed.android.application.compose)
+    alias(libs.plugins.favoritefeed.android.hilt)
 }
 
 android {
-    namespace = "com.leejihun.supergene.assignment"
+    namespace = "com.kenshi.favoritefeed"
 
     buildFeatures {
         buildConfig = true

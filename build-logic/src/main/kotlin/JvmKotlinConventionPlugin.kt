@@ -1,8 +1,8 @@
-import com.leejihun.supergene.assignment.ApplicationConfig
-import com.leejihun.supergene.assignment.Plugins
-import com.leejihun.supergene.assignment.applyPlugins
-import com.leejihun.supergene.assignment.detektPlugins
-import com.leejihun.supergene.assignment.libs
+import com.kenshi.favoritefeed.ApplicationConfig
+import com.kenshi.favoritefeed.applyPlugins
+import com.kenshi.favoritefeed.detektPlugins
+import com.kenshi.favoritefeed.libs
+import com.kenshi.favoritefeed.Plugins
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies

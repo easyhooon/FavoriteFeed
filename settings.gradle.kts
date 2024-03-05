@@ -1,4 +1,4 @@
-rootProject.name = "supergene-assignment"
+rootProject.name = "favoriteFeed"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")

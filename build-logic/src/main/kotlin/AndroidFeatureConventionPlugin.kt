@@ -1,15 +1,15 @@
-import com.leejihun.supergene.assignment.applyPlugins
-import com.leejihun.supergene.assignment.implementation
-import com.leejihun.supergene.assignment.libs
-import com.leejihun.supergene.assignment.project
+import com.kenshi.favoritefeed.implementation
+import com.kenshi.favoritefeed.libs
+import com.kenshi.favoritefeed.applyPlugins
+import com.kenshi.favoritefeed.project
 import org.gradle.kotlin.dsl.dependencies
 
 internal class AndroidFeatureConventionPlugin : BuildLogicConventionPlugin(
     {
         applyPlugins(
-            "supergene.android.library",
-            "supergene.android.library.compose",
-            "supergene.android.hilt",
+            "favoritefeed.android.library",
+            "favoritefeed.android.library.compose",
+            "favoritefeed.android.hilt",
         )
 
         dependencies {

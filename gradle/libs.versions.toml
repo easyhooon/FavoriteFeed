@@ -78,7 +78,6 @@ androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", 
 androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "androidx-paging" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidx-paging" }
 
-
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlinx-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "kotlinx-serialization-converter" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
@@ -110,15 +109,15 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 # Plugins defined by this project
-supergene-android-application = { id = "supergene.android.application", version = "unspecified" }
-supergene-android-application-compose = { id = "supergene.android.application.compose", version = "unspecified" }
-supergene-android-library = { id = "supergene.android.library", version = "unspecified" }
-supergene-android-library-compose = { id = "supergene.android.library.compose", version = "unspecified" }
-supergene-android-feature = { id = "supergene.android.feature", version = "unspecified" }
-supergene-android-hilt = { id = "supergene.android.hilt", version = "unspecified" }
-supergene-android-retrofit = { id = "supergene.android.retrofit", version = "unspecified" }
-supergene-android-room = { id = "supergene.android.room", version = "unspecified" }
-supergene-jvm-kotlin = { id = "supergene.jvm.kotlin", version = "unspecified" }
+favoritefeed-android-application = { id = "favoritefeed.android.application", version = "unspecified" }
+favoritefeed-android-application-compose = { id = "favoritefeed.android.application.compose", version = "unspecified" }
+favoritefeed-android-library = { id = "favoritefeed.android.library", version = "unspecified" }
+favoritefeed-android-library-compose = { id = "favoritefeed.android.library.compose", version = "unspecified" }
+favoritefeed-android-feature = { id = "favoritefeed.android.feature", version = "unspecified" }
+favoritefeed-android-hilt = { id = "favoritefeed.android.hilt", version = "unspecified" }
+favoritefeed-android-retrofit = { id = "favoritefeed.android.retrofit", version = "unspecified" }
+favoritefeed-android-room = { id = "favoritefeed.android.room", version = "unspecified" }
+favoritefeed-jvm-kotlin = { id = "favoritefeed.jvm.kotlin", version = "unspecified" }
 
 [bundles]
 

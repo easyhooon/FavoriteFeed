@@ -65,7 +65,7 @@ dependencies {
 fun NamedDomainObjectContainer<PluginDeclaration>.pluginRegister(data: Pair<String, String>) {
     val (pluginName, className) = data
     register(pluginName) {
-        id = "supergene.$pluginName"
+        id = "favoritefeed.$pluginName"
         implementationClass = className
     }
 }

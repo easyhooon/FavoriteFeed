@@ -1,11 +1,11 @@
 @file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
 
 plugins {
-    alias(libs.plugins.supergene.android.feature)
+    alias(libs.plugins.favoritefeed.android.feature)
 }
 
 android {
-    namespace = "com.leejihun.supergene.assignment.feature.main"
+    namespace = "com.kenshi.favoritefeed.feature.main"
 }
 
 dependencies {

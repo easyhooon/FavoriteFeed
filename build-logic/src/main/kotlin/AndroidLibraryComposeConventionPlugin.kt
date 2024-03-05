@@ -1,7 +1,7 @@
 import com.android.build.gradle.LibraryExtension
-import com.leejihun.supergene.assignment.Plugins
-import com.leejihun.supergene.assignment.applyPlugins
-import com.leejihun.supergene.assignment.configureCompose
+import com.kenshi.favoritefeed.Plugins
+import com.kenshi.favoritefeed.applyPlugins
+import com.kenshi.favoritefeed.configureCompose
 import org.gradle.kotlin.dsl.configure
 
 internal class AndroidLibraryComposeConventionPlugin : BuildLogicConventionPlugin(

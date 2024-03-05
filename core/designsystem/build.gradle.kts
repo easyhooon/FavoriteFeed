@@ -1,12 +1,12 @@
 @file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
 
 plugins {
-    alias(libs.plugins.supergene.android.library)
-    alias(libs.plugins.supergene.android.library.compose)
+    alias(libs.plugins.favoritefeed.android.library)
+    alias(libs.plugins.favoritefeed.android.library.compose)
 }
 
 android {
-    namespace = "com.leejihun.supergene.assignment.core.designsystem"
+    namespace = "com.kenshi.favoritefeed.core.designsystem"
 }
 
 dependencies {
